@@ -6,7 +6,7 @@ use App\Repository\SushiRepository;
 use Attributes\TargetRepository;
 use Core\Attributes\Table;
 
-#[Table(name: 'sushis')]
+#[Table(name: 'sushi')]
 #[TargetRepository(repoName: SushiRepository::class)]
 class Sushi
 {
