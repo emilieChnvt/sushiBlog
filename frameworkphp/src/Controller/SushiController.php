@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sushi;
+use App\Form\SushiType;
 use Attributes\DefaultEntity;
 use Core\Attributes\Route;
 use Core\Controller\Controller;
@@ -36,6 +37,23 @@ class SushiController extends Controller
        }
        return $this->render('sushi/show', [
            "sushi" => $sushi,
+       ]);
+   }
+   #[Route(uri: "/sushi/new", routeName: "add")]
+public function add():Response
+   {
+        $sushiForm = new SushiType();
+        if($sushiForm->isSubmitted()){
+            $sushi = new Sushi();
+            $sushi->setName($sushiForm->getValue("name"));
+
+            $sushi->setIngredients($sushiForm->getValue("ingredients"));
+            $id=$this->getRepository()->save($sushi);
+            return $this->redirectToRoute("show",["id"=>$id]);
+        }
+
+       return $this->render('/sushi/new',[
+
        ]);
    }
 }

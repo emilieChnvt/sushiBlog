@@ -27,7 +27,7 @@ use Core\Session\Session;
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">example link</a>
+                    <a class="nav-link" href="/sushi/new">Add Sushi</a>
                 </li>
 
 
