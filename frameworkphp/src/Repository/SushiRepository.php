@@ -18,4 +18,5 @@ class SushiRepository extends Repository
         return $this->pdo->lastInsertId();
 
     }
+
 }

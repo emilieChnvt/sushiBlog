@@ -40,7 +40,7 @@ class SushiController extends Controller
        ]);
    }
    #[Route(uri: "/sushi/new", routeName: "add")]
-public function add():Response
+    public function add():Response
    {
         $sushiForm = new SushiType();
         if($sushiForm->isSubmitted()){
@@ -55,5 +55,21 @@ public function add():Response
        return $this->render('/sushi/new',[
 
        ]);
+   }
+
+
+#[Route(uri: "/sushi/delete", routeName: "delete")]
+   public function delete():Response
+   {
+       $id = $this->getRequest()->get(["id"=> "number"]);
+       if(!$id){
+           return $this->redirectToRoute("sushis");
+       }
+       $sushi=$this->getRepository()->find($id);
+       if(!$sushi){
+           return $this->redirectToRoute("sushis");
+       }
+       $this->getRepository()->delete($sushi);
+       return $this->redirectToRoute("sushis");
    }
 }
