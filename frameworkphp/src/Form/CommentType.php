@@ -15,5 +15,6 @@ class CommentType extends FormType
     private function build()
     {
         $this->add(new FormParam("content", "string"));
+        $this->add(new FormParam("sushiId", "number"));
     }
 }

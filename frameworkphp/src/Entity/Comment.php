@@ -20,16 +20,6 @@ class Comment
     }
 
 
-    public function getSushiId(): string
-    {
-        return $this->sushi_id;
-    }
-
-    public function setSushiId(string $sushiId): void
-    {
-        $this->sushi_id = $sushiId;
-    }
-
     public function getContent(): string
     {
         return $this->content;
@@ -39,5 +29,17 @@ class Comment
     {
         $this->content = $content;
     }
+
+    public function getSushiId(): int
+    {
+        return $this->sushi_id;
+    }
+
+    public function setSushiId(int $sushi_id): void
+    {
+        $this->sushi_id = $sushi_id;
+    }
+
+
 
 }

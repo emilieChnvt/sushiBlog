@@ -13,10 +13,11 @@
 
         <?php endforeach; ?>
     </div>
-    <form action="/comment/new" method="post">
+    <form class="form form-control" action="/comment/new" method="post">
         <input type="text" name="content" class="form-control:text">
         <input type="hidden" name="sushiId" value="<?=$sushi->getId() ?>">
         <button type="submit">Comment</button>
     </form>
 </div>
+
 
