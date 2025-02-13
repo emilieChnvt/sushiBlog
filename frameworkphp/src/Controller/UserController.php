@@ -18,6 +18,18 @@ class UserController extends Controller
         $registerForm = new RegisterType();
         if($registerForm->isSubmitted())
         {
+            $username = $registerForm->getValue('name');
+
+
+            $existingUser = $this->getRepository()->findUserByName($username);
+
+            if ($existingUser) {
+                return $this->render('auth/register', [
+                    'error' => 'Ce nom d\'utilisateur est déjà pris. Veuillez en choisir un autre.'
+                ]);
+            }
+
+
             $user = new User();
 
             $user->setName($registerForm->getValue('name'));
@@ -54,17 +66,24 @@ class UserController extends Controller
                 \Core\Session\Session::set("user", [
                     "id" => $user->getId(),
                     "name" => $user->getName(),
-                    "authenticator" => $user->getAuthenticator() // Si tu as un champ pour l'authentificateur
+
                 ]);
 
                 return $this->redirectToRoute('add');}
 
-
-
-
-
             return $this->redirectToRoute('sushis');
         }
         return $this->render('auth/login', []);
+    }
+
+    #[Route(uri: '/logout', routeName: 'logout', methods: ['POST'])]
+    public function logout():Response
+    {
+        $user = $this->getUser();
+        if($user){
+            $user->logOut();
+            return $this->redirectToRoute('sushis');
+        }
+        return $this->redirectToRoute('login');
     }
 }

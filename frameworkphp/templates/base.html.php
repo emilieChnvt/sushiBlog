@@ -30,6 +30,7 @@ use Core\Session\Session;
                     <a class="nav-link" href="/sushi/new">Add Sushi</a>
                     <a class="nav-link" href="/login">login</a>
                     <a class="nav-link" href="/register">register</a>
+                    <a class="nav-link" href="/logout">logout</a>
                 </li>
 
              <strong><?php
