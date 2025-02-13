@@ -34,6 +34,26 @@ class UserController extends Controller
     #[Route(uri: '/login', routeName: 'login', methods: ['POST'])]
     public function login():Response
     {
+        $registerForm = new RegisterType();
+        if($registerForm->isSubmitted())
+        {
+            $user = $this->getRepository()->findUserByName($registerForm->getValue('name'));
+            if(!$user){return $this->redirectToRoute('login');}
+
+            $id = $user->getId();
+            if(!$id){return $this->redirectToRoute('login');}
+
+            $user = $this->getRepository()->find($id);
+            if(!$user){return $this->redirectToRoute('login');}
+
+
+
+            $success = $user->logIn($registerForm->getValue('password'));
+            if($success){return $this->redirectToRoute('add');}
+
+
+            return $this->redirectToRoute('sushis');
+        }
         return $this->render('auth/login', []);
     }
 }

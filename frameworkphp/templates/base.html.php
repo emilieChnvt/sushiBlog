@@ -32,7 +32,13 @@ use Core\Session\Session;
                     <a class="nav-link" href="/register">register</a>
                 </li>
 
+             <strong><?php
+                    if(Session::get("user")) :  ?>
 
+                        <?= Session::get("user")["authenticator"] ?>
+
+                    <?php endif; ?>
+                </strong></span>
 
             </ul>
 
