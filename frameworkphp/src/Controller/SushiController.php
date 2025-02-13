@@ -57,8 +57,29 @@ class SushiController extends Controller
        ]);
    }
 
+   #[Route(uri: "/sushi/update", routeName: "update")]
+   public function update():Response
+   {
+       $id=$this->getRequest()->get(["id"=>"number"]);
+       if(!$id){return $this->redirectToRoute("show",["id"=>$id]);}
+       $sushi = $this->getRepository()->find($id);
+       if(!$sushi){return $this->redirectToRoute("show",["id"=>$id]);}
 
-#[Route(uri: "/sushi/delete", routeName: "delete")]
+       $sushiForm = new SushiType();
+       if($sushiForm->isSubmitted()){
+
+           $sushi->setName($sushiForm->getValue("name"));
+           $sushi->setIngredients($sushiForm->getValue("ingredients"));
+           $sushi=$this->getRepository()->update($sushi);
+
+           return $this->redirectToRoute("show",["id"=>$id]);
+       }
+       return $this->render('sushi/update',[
+            "sushi"=>$sushi,
+       ]);
+   }
+
+    #[Route(uri: "/sushi/delete", routeName: "delete")]
    public function delete():Response
    {
        $id = $this->getRequest()->get(["id"=> "number"]);

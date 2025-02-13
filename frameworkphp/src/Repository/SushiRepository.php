@@ -19,4 +19,14 @@ class SushiRepository extends Repository
 
     }
 
+    public function update(Sushi $sushi): int
+    {
+        $this->pdo->prepare("UPDATE $this->tableName SET name = :name, ingredients = :ingredients WHERE id = :id")->execute([
+            "name"=> $sushi->getName(),
+            "ingredients"=> $sushi->getIngredients(),
+            "id"=> $sushi->getId()
+        ]);
+        return $sushi->getId();
+    }
+
 }

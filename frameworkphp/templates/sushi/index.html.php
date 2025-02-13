@@ -7,6 +7,7 @@
        <p><?=$sushi->getIngredients()?></p>
        <a href="/sushi/show?id=<?=$sushi->getId()?>">see</a>
        <a href="/sushi/delete?id=<?=$sushi->getId()?>">delete</a>
+       <a href="/sushi/update?id=<?=$sushi->getId()?>">edit</a>
 
    </div>
 

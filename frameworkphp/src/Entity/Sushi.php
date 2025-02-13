@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\CommentRepository;
 use App\Repository\SushiRepository;
 use Attributes\TargetRepository;
 use Core\Attributes\Table;
@@ -38,5 +39,11 @@ class Sushi
     public function setIngredients(string $ingredients): void
     {
         $this->ingredients = $ingredients;
+    }
+
+    public function getComments()
+    {
+        $commentRepository = new CommentRepository();
+        return $commentRepository->getCommentsBySushi($this);
     }
 }
