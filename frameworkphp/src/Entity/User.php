@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Entity;
+use App\Repository\UserRepository;
+use Attributes\TargetRepository;
 use Core\Attributes\Table;
 
 #[Table(name: 'users')]
+#[TargetRepository(repoName: UserRepository::class)]
 class User
 {
     private int $id;
