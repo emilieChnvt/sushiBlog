@@ -35,7 +35,7 @@ use Core\Session\Session;
              <strong><?php
                     if(Session::get("user")) :  ?>
 
-                        <?= Session::get("user")["authenticator"] ?>
+                        <?= Session::get("user")["name"] ?>
 
                     <?php endif; ?>
                 </strong></span>

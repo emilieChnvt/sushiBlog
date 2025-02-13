@@ -34,6 +34,7 @@ class UserController extends Controller
     #[Route(uri: '/login', routeName: 'login', methods: ['POST'])]
     public function login():Response
     {
+        \Core\Session\Session::start();
         $registerForm = new RegisterType();
         if($registerForm->isSubmitted())
         {
@@ -49,7 +50,17 @@ class UserController extends Controller
 
 
             $success = $user->logIn($registerForm->getValue('password'));
-            if($success){return $this->redirectToRoute('add');}
+            if($success){
+                \Core\Session\Session::set("user", [
+                    "id" => $user->getId(),
+                    "name" => $user->getName(),
+                    "authenticator" => $user->getAuthenticator() // Si tu as un champ pour l'authentificateur
+                ]);
+
+                return $this->redirectToRoute('add');}
+
+
+
 
 
             return $this->redirectToRoute('sushis');
