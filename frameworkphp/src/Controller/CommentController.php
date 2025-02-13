@@ -32,4 +32,17 @@ class CommentController extends Controller
         return $this->redirectToRoute('sushis');
     }
 
+
+    #[Route(uri: "/comment/delete", routeName: "delete", methods: ["POST"])]
+    public function delete(): Response
+    {
+        $id = $this->getRequest()->get(["id"=>"number"]);
+        if(!$id){ return $this->redirectToRoute('sushis');}
+
+        $comment = $this->getRepository()->find($id);
+        if(!$comment){ return $this->redirectToRoute('sushis');}
+
+        $this->getRepository()->delete($comment);
+        return $this->redirectToRoute('show', ['id' => $comment->getSushiId()]);
+    }
 }

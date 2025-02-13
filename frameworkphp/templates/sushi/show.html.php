@@ -10,6 +10,8 @@
         <?php foreach ($sushi->getComments() as $comment) : ?>
 
             <p><strong><?= $comment->getContent() ?></strong></p>
+            <a href="/comment/delete?id=<?=$comment->getId()?>">delete</a>
+            <a href="/comment/update?id=<?=$comment->getId()?>">edit</a>
 
         <?php endforeach; ?>
     </div>
