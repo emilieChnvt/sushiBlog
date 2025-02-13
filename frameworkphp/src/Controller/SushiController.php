@@ -60,6 +60,7 @@ class SushiController extends Controller
    #[Route(uri: "/sushi/update", routeName: "update")]
    public function update():Response
    {
+       if(!$_SESSION){return $this->redirectToRoute("login");}
        $id=$this->getRequest()->get(["id"=>"number"]);
        if(!$id){return $this->redirectToRoute("show",["id"=>$id]);}
        $sushi = $this->getRepository()->find($id);
@@ -82,6 +83,7 @@ class SushiController extends Controller
     #[Route(uri: "/sushi/delete", routeName: "delete")]
    public function delete():Response
    {
+       if(!$_SESSION){return $this->redirectToRoute("login");}
        $id = $this->getRequest()->get(["id"=> "number"]);
        if(!$id){
            return $this->redirectToRoute("sushis");
