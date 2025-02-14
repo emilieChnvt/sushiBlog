@@ -1,4 +1,4 @@
-<form class="form form-control" action="/comment/edit" method="POST">
+<form class="form form-control" action="/comment/edit?id=<?=$comment->getId()?>" method="POST">
     <input type="text" name="content"  required>
     <input type="hidden" name="sushiId" value="<?=$comment->getSushiId() ?>">
 

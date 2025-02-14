@@ -16,6 +16,8 @@ class CommentController extends Controller
     #[Route(uri: "/comment/new", routeName: "new", methods: ["POST"])]
     public function save(): Response
     {
+        if(!$_SESSION){return $this->redirectToRoute("login");}
+
         $commentForm = new CommentType();
         if($commentForm->isSubmitted())
         {
@@ -49,6 +51,7 @@ class CommentController extends Controller
     #[Route(uri: "/comment/edit", routeName: "update", methods: ["POST"])]
     public function update(): Response
     {
+        if(!$_SESSION){return $this->redirectToRoute("login");}
 
 
         $id = $this->getRequest()->get(["id"=>"number"]);
