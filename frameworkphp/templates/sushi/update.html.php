@@ -5,7 +5,7 @@
 
         <button class="btn btn-success" type="submit">Edit Post</button>
     </form>
-    <a href="/sushis">return</a>
+    <a href="/">return</a>
 
 </div>
 

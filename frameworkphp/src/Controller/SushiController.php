@@ -12,7 +12,7 @@ use Core\Http\Response;
 #[DefaultEntity(entityName: Sushi::class)]
 class SushiController extends Controller
 {
-    #[Route(uri: "/sushis", routeName: "sushis", methods: ["GET"])]
+    #[Route(uri: "/", routeName: "sushis", methods: ["GET"])]
     public function index():Response
     {
 
@@ -28,12 +28,12 @@ class SushiController extends Controller
        $id = $this->getRequest()->get(["id"=>"number"]);
        if(!$id)
        {
-           return $this->redirectToRoute("/sushis");
+           return $this->redirectToRoute("sushis");
        }
        $sushi=$this->getRepository()->find($id);
        if(!$sushi)
        {
-           return $this->redirectToRoute("/sushis");
+           return $this->redirectToRoute("sushis");
        }
        return $this->render('sushi/show', [
            "sushi" => $sushi,
