@@ -20,10 +20,12 @@ class CommentRepository extends Repository
 
     public function save(Comment $comment): Comment
     {
-        $query = $this->pdo->prepare("INSERT INTO $this->tableName (content, sushi_id) VALUES (:content, :sushi_id)");
+        $query = $this->pdo->prepare("INSERT INTO $this->tableName (content, sushi_id, user_id) VALUES (:content, :sushi_id, :user_id)");
         $query->execute([
             'content' => $comment->getContent(),
-            'sushi_id' => $comment->getSushiId()
+            'sushi_id' => $comment->getSushiId(),
+            'user_id' => $comment->getUserId(),
+
         ]);
         return $this->find($this->pdo->lastInsertId());
     }

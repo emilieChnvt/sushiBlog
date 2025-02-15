@@ -8,6 +8,7 @@ use Attributes\DefaultEntity;
 use Core\Attributes\Route;
 use Core\Controller\Controller;
 use Core\Http\Response;
+use Core\Session\Session;
 
 #[DefaultEntity(entityName: Comment::class)]
 class CommentController extends Controller
@@ -25,6 +26,7 @@ class CommentController extends Controller
 
             $comment->setContent($commentForm->getValue('content'));
             $comment->setSushiId($commentForm->getValue('sushiId'));
+            $comment->setUserId(Session::get("user")["id"]);
 
 
 

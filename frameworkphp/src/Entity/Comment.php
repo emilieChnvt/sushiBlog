@@ -14,6 +14,7 @@ class Comment
     private string $content;
     private int $sushi_id;
 
+    private int $user_id;
     public function getId(): int
     {
         return $this->id;
@@ -40,6 +41,15 @@ class Comment
         $this->sushi_id = $sushi_id;
     }
 
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(int $user_id): void
+    {
+        $this->user_id = $user_id;
+    }
 
 
 }
