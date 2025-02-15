@@ -8,6 +8,7 @@ use Attributes\DefaultEntity;
 use Core\Attributes\Route;
 use Core\Controller\Controller;
 use Core\Http\Response;
+use Core\Session\Session;
 
 #[DefaultEntity(entityName: Sushi::class)]
 class SushiController extends Controller
@@ -42,12 +43,14 @@ class SushiController extends Controller
    #[Route(uri: "/sushi/new", routeName: "add")]
     public function add():Response
    {
+       if(Session::get("user")==null){ return $this->redirectToRoute("login");}
         $sushiForm = new SushiType();
         if($sushiForm->isSubmitted()){
             $sushi = new Sushi();
             $sushi->setName($sushiForm->getValue("name"));
-
             $sushi->setIngredients($sushiForm->getValue("ingredients"));
+            $sushi->setUserId(Session::get("user")['id']);
+
             $id=$this->getRepository()->save($sushi);
             return $this->redirectToRoute("show",["id"=>$id]);
         }
@@ -60,11 +63,13 @@ class SushiController extends Controller
    #[Route(uri: "/sushi/update", routeName: "update")]
    public function update():Response
    {
-       if(!$_SESSION){return $this->redirectToRoute("login");}
+
        $id=$this->getRequest()->get(["id"=>"number"]);
        if(!$id){return $this->redirectToRoute("show",["id"=>$id]);}
        $sushi = $this->getRepository()->find($id);
        if(!$sushi){return $this->redirectToRoute("show",["id"=>$id]);}
+
+       if($sushi->getUserId() != Session::get("user")['id']){return $this->redirectToRoute("sushis");}
 
        $sushiForm = new SushiType();
        if($sushiForm->isSubmitted()){
@@ -92,6 +97,7 @@ class SushiController extends Controller
        if(!$sushi){
            return $this->redirectToRoute("sushis");
        }
+       if($sushi->getUserId()!=Session::get("user")['id']){return $this->redirectToRoute("sushis");}
        $this->getRepository()->delete($sushi);
        return $this->redirectToRoute("sushis");
    }

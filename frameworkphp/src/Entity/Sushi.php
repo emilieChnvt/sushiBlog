@@ -16,6 +16,8 @@ class Sushi
     private string $name;
     private string $ingredients;
 
+    private string $user_id;
+
     public function getId(): int
     {
         return $this->id;
@@ -45,5 +47,15 @@ class Sushi
     {
         $commentRepository = new CommentRepository();
         return $commentRepository->getCommentsBySushi($this);
+    }
+
+    public function getUserId(): string
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(string $user_id): void
+    {
+        $this->user_id = $user_id;
     }
 }

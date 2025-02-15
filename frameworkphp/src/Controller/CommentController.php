@@ -46,6 +46,8 @@ class CommentController extends Controller
         $comment = $this->getRepository()->find($id);
         if(!$comment){ return $this->redirectToRoute('sushis');}
 
+        if($comment->getUserId() !== Session::get("user")['id']){ return $this->redirectToRoute('sushis');}
+
         if(!$comment->getUserId() == Session::get("user")["id"]){ return $this->redirectToRoute('sushis');}
         $this->getRepository()->delete($comment);
         return $this->redirectToRoute('show', ['id' => $comment->getSushiId()]);
@@ -63,7 +65,7 @@ class CommentController extends Controller
         $comment = $this->getRepository()->find($id);
         if(!$comment){ return $this->redirectToRoute('sushis');}
 
-        if(!$comment->getUserId() == Session::get("user")["id"]){ return $this->redirectToRoute('sushis');}
+        if($comment->getUserId() != Session::get("user")["id"]){ return $this->redirectToRoute('sushis');}
 
         $commentForm = new CommentType();
 
